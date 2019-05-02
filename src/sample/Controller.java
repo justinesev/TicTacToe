@@ -104,17 +104,30 @@ public class Controller {
     }
 
     private void aiDeterminesButton() {
-        for (int i = 0; i < arrayOfResults.length; i++) {
-            if (Arrays.stream(arrayOfResults[i]).anyMatch(playerSign::equals)) {
-                for (int j = 0; j < arrayOfResults[i].length; j++) {
-                    if (arrayOfResults[i][j] == null) {
-                        id = "#" + i + "," + j;
-                        System.out.println("id = " + id);
-                    }
-                }
-            } else {
-                id = "#" + 1 + "," + 1;
+            id = generateRandomID();
+            System.out.println("random id = " + id);
 
+//            if (Arrays.stream(arrayOfResults[i]).anyMatch(playerSign::equals)) {
+//                for (int j = 0; j < arrayOfResults[i].length; j++) {
+//                    if (arrayOfResults[i][j] == null) {
+//                        id = "#" + i + "," + j;
+//                        System.out.println("id = " + id);
+//                    }
+//                }
+//            } else {
+//                id = "#" + 1 + "," + 1;
+//
+//            }
+
+    }
+
+    private String generateRandomID() {
+        while (true) {
+            int x = (int) (Math.random() * 3);
+            int y = (int) (Math.random() * 3);
+            System.out.println("#" + x + "," + y);
+            if (arrayOfResults[x][y] == null) {
+                return "#" + x + "," + y;
             }
         }
     }
@@ -172,6 +185,9 @@ public class Controller {
             gameOverLabel.setText("It's a tie!");
             xWins++;
             oWins++;
+            playerOWins.setVisible(true);
+            playerXWins.setVisible(true);
+            resetResults.setVisible(true);
             createRestartButton();
         }
     }
