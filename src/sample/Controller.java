@@ -1,57 +1,69 @@
 package sample;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
-import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
 
 import static java.lang.Integer.parseInt;
 
 public class Controller {
 
-    public VBox game;
-    public HBox hBox;
-    public GridPane field;
-    public Label gameOverLabel;
-    public Button playAgain;
-    public Button resetResults;
-    public Label playerXWins;
-    public Label playerOWins;
+    @FXML
+    private VBox game;
+    @FXML
+    private HBox hBox;
+    @FXML
+    private GridPane field;
+    @FXML
+    private Label gameOverLabel;
+    @FXML
+    private Button playAgain;
+    @FXML
+    private Button resetResults;
+    @FXML
+    private Label playerXWins;
+    @FXML
+    private Label playerOWins;
+    @FXML
+    private Button playWithX;
+    @FXML
+    private Button playWithO;
 
-    public static final String ICON_X = "X";
-    public static final String ICON_O = "O";
+    private static final String ICON_X = "X";
+    private static final String ICON_O = "O";
+    private String playerSign = "";
     private int xWins = 0;
     private int oWins = 0;
-    public int counter = 1;
+    private int counter = 1;
     private String id = "";
     private String[][] arrayOfResults = new String[3][3];
-    public Boolean twoPlayers;
-    public Boolean isGameOver;
+    private boolean isComputerPlayer;
+    private boolean isGameOver;
+    private boolean playerGoes = true;
 
 
     public void createFieldForTwo() {
-        twoPlayers = true;
+        isComputerPlayer = false;
+        game.getChildren().remove(hBox);
         createField();
     }
 
     public void createFieldForOne() {
-        twoPlayers = false;
-        createField();
+        game.getChildren().remove(hBox);
+        playWithO.setVisible(true);
+        playWithX.setVisible(true);
+        isComputerPlayer = true;
     }
 
     public void createField() {
-        game.getChildren().remove(hBox);
+        playerGoes = true;
         isGameOver = false;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -66,6 +78,18 @@ public class Controller {
     }
 
     private void makeMove(Button btn) {
+        if (!isComputerPlayer) {
+            personMakesMove(btn);
+        } else if (playerGoes) {
+            playerGoes = false;
+            personMakesMove(btn);
+            if (!isGameOver) {
+                aiMakesMove();
+            }
+        }
+    }
+
+    private void personMakesMove(Button btn) {
         btn.setText(determineIcon());
         btn.setDisable(true);
 
@@ -77,23 +101,26 @@ public class Controller {
         checkIfGameOver();
         counter++;
 
-        if (twoPlayers == false && isGameOver == false) {
-            aiMakesMove();
-
-        }
     }
 
     private void aiDeterminesButton() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (arrayOfResults[i][j] == null) {
-                    id = "#" + i + "," + j;
+        for (int i = 0; i < arrayOfResults.length; i++) {
+            if (Arrays.stream(arrayOfResults[i]).anyMatch(playerSign::equals)) {
+                for (int j = 0; j < arrayOfResults[i].length; j++) {
+                    if (arrayOfResults[i][j] == null) {
+                        id = "#" + i + "," + j;
+                        System.out.println("id = " + id);
+                    }
                 }
+            } else {
+                id = "#" + 1 + "," + 1;
+
             }
         }
     }
 
     private void aiMakesMove() {
+
         Runnable task = new Runnable() {
             public void run() {
                 try {
@@ -105,6 +132,7 @@ public class Controller {
                     @Override
                     public void run() {
                         aiDeterminesButton();
+                        System.out.println("computer id = " + id);
                         Button btn = (Button) field.lookup(id);
 
                         btn.setText(determineIcon());
@@ -116,8 +144,8 @@ public class Controller {
                         arrayOfResults[coordsX][coordsY] = determineIcon();
 
                         checkIfGameOver();
-
                         counter++;
+                        playerGoes = true;
                     }
                 });
             }
@@ -217,5 +245,16 @@ public class Controller {
         oWins = 0;
         playerXWins.setText("X wins: " + xWins);
         playerOWins.setText("O wins: " + oWins);
+    }
+
+    public void setPlayerSign(ActionEvent actionEvent) {
+        playerSign = ((Button) actionEvent.getSource()).getText();
+        playWithO.setVisible(false);
+        playWithX.setVisible(false);
+        createField();
+        if (playerSign.equals("O")) {
+            playerGoes = false;
+            aiMakesMove();
+        }
     }
 }

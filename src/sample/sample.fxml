@@ -12,6 +12,11 @@
     <HBox spacing="10" fx:id="hBox" alignment="center">
         <Button text="Single player" onAction="#createFieldForOne" fx:id="singlePlayer" id="functionalButton"></Button>
         <Button text="Two players" onAction="#createFieldForTwo" fx:id="twoPlayer" id="functionalButton"></Button>
+
+    </HBox>
+    <HBox>
+        <Button text="X" onAction="#setPlayerSign" fx:id="playWithX" visible="false"></Button>
+        <Button text="O" onAction="#setPlayerSign" fx:id="playWithO" visible="false"></Button>
     </HBox>
 
     <GridPane alignment="center" hgap="10" vgap="10" fx:id="field">
