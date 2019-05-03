@@ -1,4 +1,4 @@
-package sample;
+package sev.justine;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,8 +10,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Tic Tac Toe");
+        Parent root = FXMLLoader.load(getClass().getResource("gameLayout.fxml"));
+        primaryStage.setTitle("Tic Tac Toe - Justīne");
         primaryStage.setScene(new Scene(root, 500, 600));
         root.getStylesheets().add(getClass().getResource("Style.css").toString());
         primaryStage.show();

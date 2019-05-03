@@ -1,10 +1,6 @@
-<?import javafx.scene.layout.GridPane?>
-
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<VBox fx:controller="sample.Controller"
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox fx:controller="sev.justine.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="center" fx:id="game">
     <Label text="Tic Tac Toe" id="bigText" alignment="BASELINE_CENTER">
     </Label>

@@ -1,4 +1,4 @@
-package sample;
+package sev.justine;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -139,17 +139,6 @@ public class Controller {
         return false;
     }
 
-//    private boolean findsTwoEqualSignsInDiagonal() {
-//        for (int i = 0; i < arrayOfResults.length; i++) {
-//            for (int j = 0; j < arrayOfResults.length; j++) {
-//                if (i != j) {
-//                    if (arrayOfResults[i][i] == arrayOfResults[j][j]) {
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
 
 
     private boolean findsTwoEqualSignsInAColumn() {
@@ -278,10 +267,8 @@ public class Controller {
 
     public boolean diagonalFilled() {
         if (arrayOfResults[1][1] != null) {
-            if (arrayOfResults[0][0] == arrayOfResults[1][1] && arrayOfResults[0][0] == arrayOfResults[2][2] ||
-                    arrayOfResults[0][2] == arrayOfResults[1][1] && arrayOfResults[0][2] == arrayOfResults[2][0]) {
-                return true;
-            }
+            return arrayOfResults[0][0] == arrayOfResults[1][1] && arrayOfResults[0][0] == arrayOfResults[2][2] ||
+                    arrayOfResults[0][2] == arrayOfResults[1][1] && arrayOfResults[0][2] == arrayOfResults[2][0];
         }
         return false;
     }
