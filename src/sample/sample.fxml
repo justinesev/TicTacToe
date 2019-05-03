@@ -6,7 +6,10 @@
 <?import javafx.scene.control.Label?>
 <VBox fx:controller="sample.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="center" fx:id="game">
+    <Label text="Tic Tac Toe" id="bigText" alignment="BASELINE_CENTER">
+    </Label>
     <VBox alignment="TOP_CENTER">
+    <Button text="Restart game" visible="false" onAction="#restartGame" fx:id="restartGame" id="winsB" ></Button>
     <Button text="Reset results" visible="false" onAction="#resetResults" fx:id="resetResults" id="winsB" ></Button>
     <Label text="" visible="false" fx:id="playerXWins" id="winsL"></Label>
     <Label text="" visible="false" fx:id="playerOWins" id="winsL"></Label>
@@ -19,7 +22,7 @@
         <Button text="Two players" onAction="#createFieldForTwo" fx:id="twoPlayer" id="functionalButton"></Button>
     </HBox>
 
-    <Label text="" fx:id="gameOverLabel" id="gameOverLabel">
+    <Label text="" fx:id="gameOverLabel" id="bigText">
     </Label>
 
     <HBox spacing="10" alignment="center" fx:id="hBoxXO">
@@ -29,7 +32,6 @@
 
     <GridPane alignment="center" hgap="10" vgap="10" fx:id="field">
     </GridPane>
-
 
     <Button text="Play again" fx:id="playAgain" id="functionalButton" visible="false"></Button>
 

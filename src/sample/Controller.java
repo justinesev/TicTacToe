@@ -28,6 +28,8 @@ public class Controller {
     @FXML
     private Button resetResults;
     @FXML
+    private Button restartGame;
+    @FXML
     private Label playerXWins;
     @FXML
     private Label playerOWins;
@@ -68,6 +70,7 @@ public class Controller {
     }
 
     public void createField() {
+        restartGame.setVisible(true);
         playerGoes = true;
         isGameOver = false;
         for (int i = 0; i < 3; i++) {
@@ -250,13 +253,16 @@ public class Controller {
     private void createRestartButton() {
         field.setDisable(true);
         playAgain.setVisible(true);
+        restartGame.setVisible(false);
         playAgain.setOnAction((event -> {
             restartGame();
             playAgain.setVisible(false);
+
         }
         ));
     }
 
+    @FXML
     private void restartGame() {
         game.getChildren().add(hBox);
         field.setDisable(false);
@@ -264,6 +270,7 @@ public class Controller {
         counter = 1;
         arrayOfResults = new String[3][3];
         gameOverLabel.setText("");
+        restartGame.setVisible(false);
     }
 
     public void resetResults(ActionEvent actionEvent) {

@@ -57,7 +57,7 @@
             -fx-font-weight: bold;
 }
 
-#gameOverLabel {
+#bigText {
             -fx-padding: 10;
             -fx-font-size: 20;
 }
