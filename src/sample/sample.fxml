@@ -7,13 +7,12 @@
 <VBox fx:controller="sample.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="center" fx:id="game">
     <VBox alignment="TOP_CENTER">
-    <Button text="Reset results" visible="false" onAction="#resetResults" fx:id="resetResults" id="wins" ></Button>
-    <Label text="" visible="false" fx:id="playerXWins" id="wins"></Label>
-    <Label text="" visible="false" fx:id="playerOWins" id="wins"></Label>
+    <Button text="Reset results" visible="false" onAction="#resetResults" fx:id="resetResults" id="winsB" ></Button>
+    <Label text="" visible="false" fx:id="playerXWins" id="winsL"></Label>
+    <Label text="" visible="false" fx:id="playerOWins" id="winsL"></Label>
     </VBox>
 
-    <HBox
-            spacing="10"
+    <HBox   spacing="10"
             fx:id="hBox"
             alignment="center">
         <Button text="Single player" onAction="#createFieldForOne" fx:id="singlePlayer" id="functionalButton"></Button>

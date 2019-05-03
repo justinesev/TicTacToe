@@ -9,8 +9,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.Arrays;
-
 import static java.lang.Integer.parseInt;
 
 public class Controller {
@@ -40,6 +38,7 @@ public class Controller {
 
     private static final String ICON_X = "X";
     private static final String ICON_O = "O";
+    private static final int COMPUTER_THINKING_TIME = 1000;
     private String playerSign = "";
     private int xWins = 0;
     private int oWins = 0;
@@ -54,6 +53,7 @@ public class Controller {
     public void createFieldForTwo() {
         isComputerPlayer = false;
         game.getChildren().remove(hBox);
+        game.getChildren().remove(hBoxXO);
         createField();
     }
 
@@ -61,8 +61,9 @@ public class Controller {
         game.getChildren().remove(hBox);
         playWithO.setVisible(true);
         playWithX.setVisible(true);
-        if (!game.getChildren().contains(hBoxXO)){
-        game.getChildren().add(hBoxXO);}
+        if (!game.getChildren().contains(hBoxXO)) {
+            game.getChildren().add(hBoxXO);
+        }
         isComputerPlayer = true;
     }
 
@@ -101,14 +102,36 @@ public class Controller {
         int coordsX = parseInt(coords[0]);
         int coordsY = parseInt(coords[1]);
         arrayOfResults[coordsX][coordsY] = determineIcon();
-
         checkIfGameOver();
         counter++;
     }
 
     private void aiDeterminesButton() {
-        id = generateRandomID();
-        System.out.println("random id = " + id);
+        if (!findsTwoEqualSignsInARow()) {
+            id = generateRandomID();
+        }
+        System.out.println("id is found = " + id);
+    }
+
+    private boolean findsTwoEqualSignsInARow() {
+        for (int i = 0; i < arrayOfResults.length; i++) {
+            if (arrayOfResults[i][0] != null) {
+                if (arrayOfResults[i][0] == arrayOfResults[i][1]) {
+                    id = "#" + i + "," + 2;
+                    return true;
+                } else if (arrayOfResults[i][0] == arrayOfResults[i][2]) {
+                    id = "#" + i + "," + 1;
+                    return true;
+                }
+            } else if (arrayOfResults[i][1] != null) {
+
+                if (arrayOfResults[i][1] == arrayOfResults[i][2]) {
+                    id = "#" + i + "," + 0;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private String generateRandomID() {
@@ -123,11 +146,10 @@ public class Controller {
     }
 
     private void aiMakesMove() {
-
         Runnable task = new Runnable() {
             public void run() {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(COMPUTER_THINKING_TIME);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
