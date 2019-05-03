@@ -20,6 +20,8 @@ public class Controller {
     @FXML
     private HBox hBox;
     @FXML
+    private HBox hBoxXO;
+    @FXML
     private GridPane field;
     @FXML
     private Label gameOverLabel;
@@ -59,6 +61,8 @@ public class Controller {
         game.getChildren().remove(hBox);
         playWithO.setVisible(true);
         playWithX.setVisible(true);
+        if (!game.getChildren().contains(hBoxXO)){
+        game.getChildren().add(hBoxXO);}
         isComputerPlayer = true;
     }
 
@@ -100,25 +104,11 @@ public class Controller {
 
         checkIfGameOver();
         counter++;
-
     }
 
     private void aiDeterminesButton() {
-            id = generateRandomID();
-            System.out.println("random id = " + id);
-
-//            if (Arrays.stream(arrayOfResults[i]).anyMatch(playerSign::equals)) {
-//                for (int j = 0; j < arrayOfResults[i].length; j++) {
-//                    if (arrayOfResults[i][j] == null) {
-//                        id = "#" + i + "," + j;
-//                        System.out.println("id = " + id);
-//                    }
-//                }
-//            } else {
-//                id = "#" + 1 + "," + 1;
-//
-//            }
-
+        id = generateRandomID();
+        System.out.println("random id = " + id);
     }
 
     private String generateRandomID() {
@@ -177,7 +167,12 @@ public class Controller {
         if (rowFilled() || columnFilled() || diagonalFilled()) {
             isGameOver = true;
             gameOverLabel.setText(determineIcon() + " won");
-            addResult();
+            if (determineIcon().equals("X")) {
+                xWins++;
+            } else {
+                oWins++;
+            }
+            showResultsAndReset();
             createRestartButton();
 
         } else if (counter == 9) {
@@ -185,19 +180,12 @@ public class Controller {
             gameOverLabel.setText("It's a tie!");
             xWins++;
             oWins++;
-            playerOWins.setVisible(true);
-            playerXWins.setVisible(true);
-            resetResults.setVisible(true);
+            showResultsAndReset();
             createRestartButton();
         }
     }
 
-    private void addResult() {
-        if (determineIcon().equals("X")) {
-            xWins++;
-        } else {
-            oWins++;
-        }
+    private void showResultsAndReset() {
         playerOWins.setVisible(true);
         playerXWins.setVisible(true);
         resetResults.setVisible(true);
@@ -265,8 +253,7 @@ public class Controller {
 
     public void setPlayerSign(ActionEvent actionEvent) {
         playerSign = ((Button) actionEvent.getSource()).getText();
-        playWithO.setVisible(false);
-        playWithX.setVisible(false);
+        game.getChildren().remove(hBoxXO);
         createField();
         if (playerSign.equals("O")) {
             playerGoes = false;

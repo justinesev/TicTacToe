@@ -6,15 +6,24 @@
 <?import javafx.scene.control.Label?>
 <VBox fx:controller="sample.Controller"
       xmlns:fx="http://javafx.com/fxml" alignment="center" fx:id="game">
-    <Button text="Reset results" visible="false" onAction="#resetResults" fx:id="resetResults" id="functionalButton"></Button>
+    <VBox alignment="TOP_CENTER">
+    <Button text="Reset results" visible="false" onAction="#resetResults" fx:id="resetResults" id="wins" ></Button>
     <Label text="" visible="false" fx:id="playerXWins" id="wins"></Label>
     <Label text="" visible="false" fx:id="playerOWins" id="wins"></Label>
-    <HBox spacing="10" fx:id="hBox" alignment="center">
+    </VBox>
+
+    <HBox
+            spacing="10"
+            fx:id="hBox"
+            alignment="center">
         <Button text="Single player" onAction="#createFieldForOne" fx:id="singlePlayer" id="functionalButton"></Button>
         <Button text="Two players" onAction="#createFieldForTwo" fx:id="twoPlayer" id="functionalButton"></Button>
-
     </HBox>
-    <HBox>
+
+    <Label text="" fx:id="gameOverLabel" id="gameOverLabel">
+    </Label>
+
+    <HBox spacing="10" alignment="center" fx:id="hBoxXO">
         <Button text="X" onAction="#setPlayerSign" fx:id="playWithX" visible="false"></Button>
         <Button text="O" onAction="#setPlayerSign" fx:id="playWithO" visible="false"></Button>
     </HBox>
@@ -22,8 +31,7 @@
     <GridPane alignment="center" hgap="10" vgap="10" fx:id="field">
     </GridPane>
 
-    <Label text="" fx:id="gameOverLabel">
-    </Label>
+
     <Button text="Play again" fx:id="playAgain" id="functionalButton" visible="false"></Button>
 
 </VBox>

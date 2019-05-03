@@ -1,7 +1,3 @@
-.VBox {
-
-}
-
 .button {
 -fx-background-color: #FFC0CB;
    -fx-pref-height: 70px;
@@ -22,11 +18,27 @@
 }
 
 #functionalButton {
-    -fx-pref-width: 200px;
-
+            -fx-pref-width: 200px;
 }
 
 #wins {
+            -fx-pref-width: 100px;
+            -fx-pref-height: 35px;
+            -fx-padding: 3;
+            -fx-alignment: center;
+}
+
+.label {
             -fx-font-family: "Helvetica";
             -fx-font-weight: bold;
 }
+
+#gameOverLabel {
+            -fx-padding: 10;
+            -fx-font-size: 20;
+}
+
+#field {
+            -fx-padding: 15;
+            }
+
