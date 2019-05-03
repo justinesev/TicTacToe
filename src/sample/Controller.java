@@ -104,6 +104,8 @@ public class Controller {
         String[] coords = btn.getId().split(",");
         int coordsX = parseInt(coords[0]);
         int coordsY = parseInt(coords[1]);
+        System.out.println("coordsX = " + coordsX);
+        System.out.println("coordsY = " + coordsY);
         arrayOfResults[coordsX][coordsY] = determineIcon();
         checkIfGameOver();
         counter++;
@@ -118,18 +120,18 @@ public class Controller {
 
     private boolean findsTwoEqualSignsInARow() {
         for (int i = 0; i < arrayOfResults.length; i++) {
-            if (arrayOfResults[i][0] != null) {
-                if (arrayOfResults[i][0] == arrayOfResults[i][1]) {
-                    id = "#" + i + "," + 2;
+            if (arrayOfResults[0][i] != null) {
+                if (arrayOfResults[0][i] == arrayOfResults[1][i] && arrayOfResults[2][i]==null) {
+                    id = "#" + 2 + "," + i;
                     return true;
-                } else if (arrayOfResults[i][0] == arrayOfResults[i][2]) {
-                    id = "#" + i + "," + 1;
+                } else if (arrayOfResults[0][i] == arrayOfResults[2][i] && arrayOfResults[1][i]==null) {
+                    id = "#" + 1 + "," + i;
                     return true;
                 }
-            } else if (arrayOfResults[i][1] != null) {
+            } else if (arrayOfResults[1][i] != null) {
 
-                if (arrayOfResults[i][1] == arrayOfResults[i][2]) {
-                    id = "#" + i + "," + 0;
+                if (arrayOfResults[1][i] == arrayOfResults[2][i] && arrayOfResults[0][i]==null) {
+                    id = "#" + 0 + "," + i;
                     return true;
                 }
             }
