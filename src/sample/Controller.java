@@ -112,7 +112,7 @@ public class Controller {
     }
 
     private void aiDeterminesButton() {
-        if (!findsTwoEqualSignsInARow()) {
+        if (!findsTwoEqualSignsInARow() && !findsTwoEqualSignsInAColumn()) {
             id = generateRandomID();
         }
         System.out.println("id is found = " + id);
@@ -121,17 +121,51 @@ public class Controller {
     private boolean findsTwoEqualSignsInARow() {
         for (int i = 0; i < arrayOfResults.length; i++) {
             if (arrayOfResults[0][i] != null) {
-                if (arrayOfResults[0][i] == arrayOfResults[1][i] && arrayOfResults[2][i]==null) {
+                if (arrayOfResults[0][i] == arrayOfResults[1][i] && arrayOfResults[2][i] == null) {
                     id = "#" + 2 + "," + i;
                     return true;
-                } else if (arrayOfResults[0][i] == arrayOfResults[2][i] && arrayOfResults[1][i]==null) {
+                } else if (arrayOfResults[0][i] == arrayOfResults[2][i] && arrayOfResults[1][i] == null) {
                     id = "#" + 1 + "," + i;
                     return true;
                 }
             } else if (arrayOfResults[1][i] != null) {
 
-                if (arrayOfResults[1][i] == arrayOfResults[2][i] && arrayOfResults[0][i]==null) {
+                if (arrayOfResults[1][i] == arrayOfResults[2][i] && arrayOfResults[0][i] == null) {
                     id = "#" + 0 + "," + i;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+//    private boolean findsTwoEqualSignsInDiagonal() {
+//        for (int i = 0; i < arrayOfResults.length; i++) {
+//            for (int j = 0; j < arrayOfResults.length; j++) {
+//                if (i != j) {
+//                    if (arrayOfResults[i][i] == arrayOfResults[j][j]) {
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+
+    private boolean findsTwoEqualSignsInAColumn() {
+        for (int i = 0; i < arrayOfResults.length; i++) {
+            if (arrayOfResults[i][0] != null) {
+                if (arrayOfResults[i][0] == arrayOfResults[i][1] && arrayOfResults[i][2] == null) {
+                    id = "#" + i + "," + 2;
+                    return true;
+                } else if (arrayOfResults[i][0] == arrayOfResults[i][2] && arrayOfResults[i][1] == null) {
+                    id = "#" + i + "," + 1;
+                    return true;
+                }
+            } else if (arrayOfResults[i][1] != null) {
+
+                if (arrayOfResults[i][1] == arrayOfResults[i][2] && arrayOfResults[i][0] == null) {
+                    id = "#" + i + "," + 0;
                     return true;
                 }
             }
