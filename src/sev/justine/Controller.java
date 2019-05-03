@@ -112,7 +112,7 @@ public class Controller {
     }
 
     private void aiDeterminesButton() {
-        if (!findsTwoEqualSignsInARow() && !findsTwoEqualSignsInAColumn()) {
+        if (!findsTwoEqualSignsInARow() && !findsTwoEqualSignsInAColumn() && !checkDiagonals()) {
             id = generateRandomID();
         }
         System.out.println("id is found = " + id);
@@ -134,6 +134,44 @@ public class Controller {
                     id = "#" + 0 + "," + i;
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    private boolean checkDiagonals() {
+        return checkDiagonal1() || checkDiagonal2();
+    }
+
+    private boolean checkDiagonal1() {
+        boolean filled = arrayOfResults[0][0] != null || arrayOfResults[1][1] != null;
+
+        if (filled) {
+            boolean equal1 = arrayOfResults[0][0] == arrayOfResults[1][1] && arrayOfResults[2][2] == null;
+            boolean equal2 = arrayOfResults[0][0] == arrayOfResults[2][2] && arrayOfResults[1][1] == null;
+            if (equal1) {
+                id = "#2,2";
+                return true;
+            } else if (equal2) {
+                id = "#1,1";
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkDiagonal2() {
+        boolean filled = arrayOfResults[0][2] != null || arrayOfResults[1][1] != null;
+
+        if (filled) {
+            boolean equal1 = arrayOfResults[0][2] == arrayOfResults[1][1] && arrayOfResults[2][0] == null;
+            boolean equal2 = arrayOfResults[0][2] == arrayOfResults[2][0] && arrayOfResults[1][1] == null;
+            if (equal1) {
+                id = "#2,0";
+                return true;
+            } else if (equal2) {
+                id = "#1,1";
+                return true;
             }
         }
         return false;
